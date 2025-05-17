@@ -1,35 +1,69 @@
-# network_programming_final_report
-Peer-to-peer file sharing system
-P2P file sharing with search, segmented downloads, and parallel transfer.
-CLI: search lecture_notes.pdf
-Terminal prints:
- Found at peers:
- 1. 192.168.1.2
- 2. 192.168.1.4
- Downloading from 2 peers... Done.
+# P2P File Sharing System - README
 
-Directory : 
-p2p/
-├── final_0.0.c
-├── shared/
-│   ├── file1.txt
-│   └── ...
-Run instruction :
+## Group Members and Contributions
 
-terminal 0:
-./final_0.0 5000 127.0.0.1:5001 127.0.0.1:5002
-share file.txt
-list
-download file.txt
+* **Đặng Trung Nguyên** – 
+* **Đoàn Đình Khải** – 
+* **Trương Đức Hiệp** – 
+* **Đặng Thu Huyền** –
+* **Nguyễn Trường Giang** –
+* **Dương Minh Tiến** –
+* **Bùi Mạnh Duy** –
 
-terminal 1:
-./final_0.0 5001 127.0.0.1:5000 127.0.0.1:5002
-share file.txt
-list
-download file.txt
+## Build and Run Instructions
 
-terminal 2:
-./final_0.0 5002 127.0.0.1:5000 127.0.0.1:5001
-share file.txt
-list
-download file.txt
+### Requirements
+
+* OS: Ubuntu 20.04+ or any POSIX-compatible system
+* Compiler: GCC
+* Libraries: pthread, OpenSSL (for SHA-256)
+
+### Build
+
+```sh
+make
+```
+
+### Run
+
+Each peer should be launched in a separate terminal:
+
+```sh
+./peer
+```
+
+## Command Interface
+
+```
+share <filename>       # Share a local file
+search <filename>      # Search for a file in the network
+download <filename>    # Download a file from discovered peers
+list                   # List local and discovered shared files
+```
+
+## Features Implemented
+
+* Peer discovery using UDP broadcast
+* Distributed file indexing
+* File segmentation and chunked downloads
+* Parallel multi-peer download
+* Bandwidth limiting per thread
+* SHA-256 file integrity verification
+* CLI with live progress reporting
+
+## Challenges and Solutions
+
+* **Peer discovery:** Using UDP broadcast made peer detection fast, but limited it to LANs. Solution: kept it simple for demo.
+* **Parallel downloading coordination:** Managed race conditions using file locks and mutexes.
+* **Integrity checking:** Integrated OpenSSL SHA-256 for robust hash checking post-download.
+* **Bandwidth limiting:** Implemented per-thread rate limiting with `usleep()` and timing control.
+
+## Notes
+
+* Ensure peers are on the same local network and firewall rules allow UDP/TCP ports.
+* Use `list` command after startup to see shared files from other peers.
+* Avoid duplicate filenames in the shared folder.
+
+---
+
+
