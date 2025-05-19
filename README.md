@@ -2,7 +2,7 @@
 
 ## Group Members and Contributions
 
-| Member                   | Role                                          | Job description                                                                                                                       
+| Member                                                                                                                       
 | ----------------         | --------------------------------------------- | -----------------------------------------------------------------------------------------------------------------------------------|
 | **Trương Dức Hiệp**      **System leader / architecture**                 Overall architectural design P2P <br>- Coordinating modules <br>- Final integrated inspection            
 | **Nguyễn Trường Giang**  **Peer Discovery & UDP protocol**                Install the Peer Discovery Settings via UDP Broadcast <br>- Periodic processing and receiving peer information <br>- Update the Peer                                                                               list of activities
