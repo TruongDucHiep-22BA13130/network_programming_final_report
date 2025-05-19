@@ -21,7 +21,7 @@
 ### Build
 
 ```sh
-make
+make clean && make
 ```
 
 ### Run
@@ -29,7 +29,7 @@ make
 Each peer should be launched in a separate terminal:
 
 ```sh
-./peer
+./p2p_advanced
 ```
 
 ## Command Interface
