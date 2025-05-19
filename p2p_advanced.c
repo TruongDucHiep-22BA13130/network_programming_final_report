@@ -16,10 +16,10 @@
 
 #define MAX_PEERS 32
 #define MAX_FILES 256
-#define CHUNK_SIZE 262144 // 256 KB
+#define CHUNK_SIZE 262144
 #define BUFFER_SIZE CHUNK_SIZE
 #define UDP_PORT 9000
-#define BROADCAST_INTERVAL 3 // seconds
+#define BROADCAST_INTERVAL 3 
 #define MAX_SOURCES 8
 
 typedef struct {
