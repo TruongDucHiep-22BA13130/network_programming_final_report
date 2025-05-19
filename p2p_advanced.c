@@ -22,14 +22,12 @@
 #define BROADCAST_INTERVAL 3 // seconds
 #define MAX_SOURCES 8
 
-// Peer info structure
 typedef struct {
     char ip[INET_ADDRSTRLEN];
     int port;
     time_t last_seen;
 } PeerInfo;
 
-// File info structure
 typedef struct {
     char name[256];
     unsigned char hash[SHA256_DIGEST_LENGTH];
@@ -49,7 +47,6 @@ char my_ip[INET_ADDRSTRLEN] = "127.0.0.1";
 pthread_mutex_t peer_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t file_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-// Function prototypes
 void* udp_broadcast_thread(void* arg);
 void* udp_listen_thread(void* arg);
 void* tcp_server_thread(void* arg);
@@ -59,8 +56,6 @@ void search_files(const char* keyword);
 void download_file(int file_id);
 void compute_file_hash(const char* filename, unsigned char* hash, size_t* filesize);
 void index_local_files();
-
-// --- Utility Functions ---
 void get_my_ip(char *buf) {
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
     struct sockaddr_in serv = {0};
@@ -84,7 +79,6 @@ int hash_equal(unsigned char *a, unsigned char *b) {
     return memcmp(a, b, SHA256_DIGEST_LENGTH) == 0;
 }
 
-// --- Peer Discovery (UDP Broadcast) ---
 void* udp_broadcast_thread(void* arg) {
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
     int broadcast = 1;
@@ -143,7 +137,6 @@ void* udp_listen_thread(void* arg) {
     return NULL;
 }
 
-// --- File Hashing ---
 void compute_file_hash(const char* filename, unsigned char* hash, size_t* filesize) {
     FILE *fp = fopen(filename, "rb");
     if (!fp) return;
@@ -160,7 +153,6 @@ void compute_file_hash(const char* filename, unsigned char* hash, size_t* filesi
     fclose(fp);
 }
 
-// --- File Indexing ---
 void index_local_files() {
     DIR *d = opendir("shared");
     struct dirent *dir;
@@ -185,7 +177,6 @@ void index_local_files() {
     closedir(d);
 }
 
-// --- TCP Server: Handle incoming requests ---
 void* tcp_server_thread(void* arg) {
     int server_sock = socket(AF_INET, SOCK_STREAM, 0);
     int opt = 1;
@@ -247,7 +238,6 @@ void handle_client(int *pclient) {
     close(sock);
 }
 
-// --- Command-line Interface ---
 void handle_command() {
     char cmd[256];
     while (1) {
@@ -294,7 +284,6 @@ void handle_command() {
     }
 }
 
-// --- Search Functionality ---
 void search_files(const char* keyword) {
     printf("Searching for '%s'...\n", keyword);
     pthread_mutex_lock(&peer_mutex);
@@ -333,7 +322,6 @@ void search_files(const char* keyword) {
     if (!found) printf("No results found.\n");
 }
 
-// --- Download (Parallel, Chunked) ---
 typedef struct {
     char fname[256];
     unsigned char hash[SHA256_DIGEST_LENGTH];
@@ -391,7 +379,7 @@ void download_file(int file_id) {
         memcpy(tasks[i].hash, f.hash, SHA256_DIGEST_LENGTH);
         tasks[i].size = f.size;
         tasks[i].chunk_idx = i;
-        // For demo, just use the first peer (can be improved to use multiple sources)
+        
         pthread_mutex_lock(&peer_mutex);
         if (peer_count > 0) {
             strcpy(tasks[i].ip, peers[0].ip);
@@ -406,7 +394,7 @@ void download_file(int file_id) {
         tasks[i].done = done;
         pthread_create(&threads[i], NULL, download_chunk_thread, &tasks[i]);
     }
-    // Progress bar
+
     int completed = 0;
     while (completed < f.num_chunks) {
         completed = 0;
@@ -424,7 +412,7 @@ void download_file(int file_id) {
         fwrite(filebuf + i*CHUNK_SIZE, 1, chunk_lens[i], fp);
     }
     fclose(fp);
-    // Integrity check
+
     unsigned char hash[SHA256_DIGEST_LENGTH];
     size_t sz;
     compute_file_hash(outpath, hash, &sz);
@@ -438,7 +426,7 @@ void download_file(int file_id) {
     free(done);
 }
 
-// --- Main ---
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         printf("Usage: %s <listen_port>\n", argv[0]);
