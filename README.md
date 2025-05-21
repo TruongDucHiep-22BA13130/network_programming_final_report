@@ -4,13 +4,13 @@
 
 | Member                   |role                                            |Job description                                                
 |:----------------         |:--------------------------------------------:  |:------------------------------------------------------------------------------------------------------------------------------------|
-| **Trương Dức Hiệp**      |**System leader / architecture**                |Overall architectural design P2P <br>- Coordinating modules <br>- Final integrated inspection            
-| **Nguyễn Trường Giang**  |**Peer Discovery & UDP protocol**               | Install the Peer Discovery Settings via UDP Broadcast <br>- Periodic processing and receiving peer information <br>- Update the Peer                                                                             |list of activities
-| **Dương Minh Tiến**      |**TCP Server & Query File**                     |Deploying TCP server receives the request for search and sharing <br>- Handling multiple clients simultaneously with Multithreading                 
-| **Đoàn Đình Khải**       |**Search & Communication Peer**                 |Handling search queries from users <br>- Send the request to the peer, synthesize feedback <br>- Display search results for users   
-| **Đặng Thu Huyền**       |**Download file & protocol chunk**              |Settings file downloads in partial parts (chunk) <br>- Multi-load management simultaneously from many peer <br>- combine files and                                                                                |check the integrity      
-| **Bùi Mạnh Duy**         |**SHA-256 & Share file management**             |Install the hash code sha-256 <br>- Browse the folder `shared/`, create the file index <br>- Compare the hash code after downloading                         
-| **Đặng Trung Nguyên**    |**Command line interface (CLI) & Documentation**|Design and process commands 'share`, ``, download', `list` <br>- Communicate with users <br>- Write Readme, Instructions for use and                                                                              |report
+| **Trương Đức Hiệp – 22BA13130**      |**System leader / architecture**                |Overall architectural design P2P <br>- Coordinating modules <br>- Final integrated inspection            
+| **Nguyễn Trường Giang – 22BA13111**  |**Peer Discovery & UDP protocol**               | Install the Peer Discovery Settings via UDP Broadcast <br>- Periodic processing and receiving peer information <br>- Update the Peer                                                                             |list of activities
+| **Dương Minh Tiến - 22BA13297**      |**TCP Server & Query File**                     |Deploying TCP server receives the request for search and sharing <br>- Handling multiple clients simultaneously with Multithreading                 
+| **Đoàn Đình Khải - 22BA13167**       |**Search & Communication Peer**                 |Handling search queries from users <br>- Send the request to the peer, synthesize feedback <br>- Display search results for users   
+| **Đặng Thu Huyền - 22BA13165**       |**Download file & protocol chunk**              |Settings file downloads in partial parts (chunk) <br>- Multi-load management simultaneously from many peer <br>- combine files and                                                                                |check the integrity      
+| **Bùi Mạnh Duy – 22BA13097**         |**SHA-256 & Share file management**             |Install the hash code sha-256 <br>- Browse the folder `shared/`, create the file index <br>- Compare the hash code after downloading                         
+| **Đặng Trung Nguyên - 22BA13239**    |**Command line interface (CLI) & Documentation**|Design and process commands 'share`, ``, download', `list` <br>- Communicate with users <br>- Write Readme, Instructions for use and                                                                              |report
 
 ## Build and Run Instructions
 
@@ -31,7 +31,7 @@ make clean && make
 Each peer should be launched in a separate terminal:
 
 ```sh
-./p2p_advanced
+./p2p_advanced <port>
 ```
 
 ## Command Interface
@@ -39,7 +39,7 @@ Each peer should be launched in a separate terminal:
 ```
 share <filename>       # Share a local file
 search <filename>      # Search for a file in the network
-download <filename>    # Download a file from discovered peers
+download <number of file in remote file>    # Download a file from discovered peers
 list                   # List local and discovered shared files
 ```
 
@@ -108,6 +108,11 @@ Solution: Added logic to rename conflicting files or warn the user.
 * Use `list` command after startup to see shared files from other peers.
 * Avoid duplicate filenames in the shared folder.
 
----
+## References
+1.	BitTorrent Protocol Specification. [Online]. Available: https://www.bittorrent.org/beps/bep_0003.html
+2.	Maymounkov, P., & Mazières, D. (2002). Kademlia: A peer-to-peer information system based on the XOR metric. In Peer-to-Peer Systems (pp. 53-65).
+3.	Cohen, B. (2003). Incentives build robustness in BitTorrent. In Workshop on Economics of Peer-to-Peer systems.
+4.	Stoica, I., Morris, R., Karger, D., Kaashoek, M. F., & Balakrishnan, H. (2001). Chord: A scalable peer-to-peer lookup service for internet applications. In Proceedings of the 2001 conference on Applications, technologies, architectures, and protocols for computer communications.
+
 
 
