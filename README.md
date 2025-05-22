@@ -10,7 +10,7 @@
 | **Đoàn Đình Khải - 22BA13167**       |**Search & Communication Peer**                 |Handling search queries from users <br>- Send the request to the peer, synthesize feedback <br>- Display search results for users   
 | **Đặng Thu Huyền - 22BA13165**       |**Download file & protocol chunk**              |Settings file downloads in partial parts (chunk) <br>- Multi-load management simultaneously from many peer <br>- combine files and                                                                                |check the integrity      
 | **Bùi Mạnh Duy – 22BA13097**         |**SHA-256 & Share file management**             |Install the hash code sha-256 <br>- Browse the folder `shared/`, create the file index <br>- Compare the hash code after downloading                         
-| **Đặng Trung Nguyên - 22BA13239**    |**Command line interface (CLI) & Documentation**|Design and process commands 'share`, ``, download', `list` <br>- Communicate with users <br>- Write Readme, Instructions for use and                                                                              |report
+| **Đặng Trung Nguyên - 22BA13239**    |**Command line interface (CLI) & Documentation**|Design and process commands 'share`, `search`, download', `list` <br>- Communicate with users <br>- Write Readme, Instructions for use and                                                                              |report
 
 ## Build and Run Instructions
 
